@@ -1,46 +1,26 @@
-Content-Type: multipart/mixed; boundary="===============4428905109045197829=="
+Content-Type: multipart/mixed; boundary="===============8937337852356639022=="
 MIME-Version: 1.0
 
---===============4428905109045197829==
-Content-Type: text/part-handler; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename="part-handler.py"
-
-#part-handler
-# vi: syntax=python ts=4
-
-def list_types():
-    # return a list of mime-types that are handled by this module
-    return(["text/plain", "text/go-cubs-go"])
-
-def handle_part(data,ctype,filename,payload):
-    # data: the cloudinit object
-    # ctype: '__begin__', '__end__', or the specific mime-type of the part
-    # filename: the filename for the part, or dynamically generated part if
-    #           no filename is given attribute is present
-    # payload: the content of the part (empty for begin or end)
-    if ctype == "__begin__":
-       print "my handler is beginning"
-       return
-    if ctype == "__end__":
-       print "my handler is ending"
-       return
-
-    print "==== received ctype=%s filename=%s ====" % (ctype,filename)
-    import os
-    for user in payload.splitlines():
-        print " == Creating user %s" % (user)
-        os.system('useradd -m %s' % (user) )
-    print "==== end ctype=%s filename=%s" % (ctype, filename)
-
---===============4428905109045197829==
-Content-Type: text/plain; charset="us-ascii"
+--===============8937337852356639022==
+Content-Type: text/x-shellscript; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename="user.txt"
+Content-Disposition: attachment; filename="userdata1.sh"
 
-vasya
-petya
+#! /bin/sh
 
---===============4428905109045197829==--
+touch /script_executed1
+env >> /script_executed1
+
+--===============8937337852356639022==
+Content-Type: text/x-shellscript; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="userdata2.sh"
+
+#! /bin/sh
+
+touch /script_executed2
+env >> /script_executed2
+
+--===============8937337852356639022==--
